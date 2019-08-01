@@ -64,6 +64,6 @@ $ git commit -m "clear duoyu file"
 $ git push origin master
 
 
-
+git add -u只将修改和删除加入暂存区;git add -A会将新增/修改/删除加入暂存区。
 
 
