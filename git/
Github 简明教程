@@ -1,0 +1,227 @@
+
+--Github 简明教程
+如果你是一枚Coder，但是你不知道Github，那么我觉的你就不是一个菜鸟级别的Coder，因为你压根不是真正Coder，你只是一个Code搬运工。
+但是你如果已经在读这篇文章了，我觉的你已经知道Github了。
+正是Github，让社会化编程成为现实。
+1.什么是 Github?
+github是一个基于git的代码托管平台，付费用户可以建私人仓库，我们一般的免费用户只能使用公共仓库，也就是代码要公开。
+Github 由Chris Wanstrath, PJ Hyett 与Tom Preston-Werner三位开发者在2008年4月创办。迄今拥有59名全职员工，主要提供基于git的版本托管服务。
+目前看来，GitHub这场冒险已经胜出。根据来自维基百科关于GitHub的描述，我们可以形象地看出GitHub的增长速度：
+github-repos
+今天，GitHub已是：
+    一个拥有143万开发者的社区。其中不乏Linux发明者Torvalds这样的顶级黑客，以及Rails创始人DHH这样的年轻极客。
+    这个星球上最流行的开源托管服务。目前已托管431万git项目，不仅越来越多知名开源项目迁入GitHub，比如Ruby on Rails、jQuery、Ruby、Erlang/OTP；近三年流行的开源库往往在GitHub首发，例如：BootStrap、Node.js、CoffeScript等。
+    alexa全球排名414的网站。
+
+2.注册账户以及创建仓库:
+要想使用github第一步当然是注册github账号了， github官网地址：https://github.com/。 之后就可以创建仓库了（免费用户只能建公共仓库），Create a New Repository，填好名称后Create，之后会出现一些仓库的配置信息，这也是一个git的简单教程。
+github账号:
+用户名:yuanxiaowen986
+电子邮件：18770088220@163.com
+密码：yuan1877008
+github网址：https://github.com/yuanxiaowen986
+
+3.Github 安装及配置Git:
+(1)下载 git Linux 版:
+(2)ubuntu下载git命令:sudo apt-get install git
+查看git版本，使用命令:git --version
+(3)生成rsa密钥,使用命令:ssh-keygen -t rsa -C 18770088220@163.com
+密钥The key fingerprint is:
+53:c3:c4:26:22:af:63:8d:58:a8:12:e8:5e:ef:ad:41 18770088220@163.com
+(4)登陆github网站，在Account Setting中查看SSH AND GPG Keys添加ssh rsa 公钥,在主文件夹/home/hadoop/.ssh/id_rsa.pub里。如果.shh文件夹被隐藏了，则按CTRL+H，就显示出来了。
+(5)添加成功之后，ubuntu连接git,使用命令:ssh -T git@github.com
+如果是第一次的会提示是否continue，输入yes就会看到：You've successfully authenticated, but GitHub does not provide shell access 。这就表示已成功连上github。
+(6)接下来我们要做的就是把本地仓库传到github上去，在此之前还需要设置username和email，因为github每次commit都会记录他们。
+$ git config --global user.name "yuanxiaowen986"
+$ git config --global user.email "18770088220@163.com"
+
+(7)如果要上传本地仓库到远程github,先进入要上传的仓库，右键git bash，添加远程地址：
+$ git remote add origin git@github.com:yourName/yourRepo.git
+后面的yourName和yourRepo表示你再github的用户名和刚才新建的仓库，加完之后进入.git，打开config，这里会多出一个remote "origin"内容，这就是刚才添加的远程地址，也可以直接修改config来配置远程地址。
+(8)如果要创建新仓库，先创建新文件夹，打开，然后执行 git init 以创建新的 git 仓库。
+(9)如果要检出仓库：
+执行如下命令以创建一个本地仓库的克隆版本：
+git clone /path/to/repository 
+如果是远端服务器上的仓库，你的命令会是这个样子：
+git clone username@host:/path/to/repository
+
+工作流
+你的本地仓库由 git 维护的三棵"树"组成。第一个是你的 工作目录，它持有实际文件；第二个是 暂存区（Index），它像个缓存区域，临时保存你的改动；最后是 HEAD，它指向你最后一次提交的结果。
+
+你可以提出更改（把它们添加到暂存区），使用如下命令：
+git add <filename>
+git add *
+这是 git 基本工作流程的第一步；使用如下命令以实际提交改动：
+git commit -m "代码提交信息"
+现在，你的改动已经提交到了 HEAD，但是还没到你的远端仓库。
+trees
+推送改动
+
+你的改动现在已经在本地仓库的 HEAD 中了。执行如下命令以将这些改动提交到远端仓库：
+git push origin master
+可以把 master 换成你想要推送的任何分支。
+
+如果你还没有克隆现有仓库，并欲将你的仓库连接到某个远程服务器，你可以使用如下命令添加：
+git remote add origin <server>
+如此你就能够将你的改动推送到所添加的服务器上去了。
+分支:
+分支是用来将特性开发绝缘开来的。在你创建仓库的时候，master 是"默认的"分支。在其他分支上进行开发，完成后再将它们合并到主分支上。
+branches
+
+创建一个叫做"feature_x"的分支，并切换过去：
+git checkout -b feature_x
+切换回主分支：
+git checkout master
+再把新建的分支删掉：
+git branch -d feature_x
+除非你将分支推送到远端仓库，不然该分支就是 不为他人所见的：
+git push origin <branch>
+更新与合并
+
+要更新你的本地仓库至最新改动，执行：
+git pull
+以在你的工作目录中 获取（fetch） 并 合并（merge） 远端的改动。
+要合并其他分支到你的当前分支（例如 master），执行：
+git merge <branch>
+在这两种情况下，git 都会尝试去自动合并改动。遗憾的是，这可能并非每次都成功，并可能出现冲突（conflicts）。 这时候就需要你修改这些文件来手动合并这些冲突（conflicts）。改完之后，你需要执行如下命令以将它们标记为合并成功：
+git add <filename>
+在合并改动之前，你可以使用如下命令预览差异：
+git diff <source_branch> <target_branch>
+标签
+
+为软件发布创建标签是推荐的。这个概念早已存在，在 SVN 中也有。你可以执行如下命令创建一个叫做 1.0.0 的标签：
+git tag 1.0.0 1b2e1d63ff
+1b2e1d63ff 是你想要标记的提交 ID 的前 10 位字符。可以使用下列命令获取提交 ID：
+git log
+你也可以使用少一点的提交 ID 前几位，只要它的指向具有唯一性。
+替换本地改动
+
+假如你操作失误（当然，这最好永远不要发生），你可以使用如下命令替换掉本地改动：
+git checkout -- <filename>
+此命令会使用 HEAD 中的最新内容替换掉你的工作目录中的文件。已添加到暂存区的改动以及新文件都不会受到影响。
+
+假如你想丢弃你在本地的所有改动与提交，可以到服务器上获取最新的版本历史，并将你本地主分支指向它：
+git fetch origin
+git reset --hard origin/master
+实用小贴士
+
+内建的图形化 git：
+gitk
+彩色的 git 输出：
+git config color.ui true
+显示历史记录时，每个提交的信息只显示一行：
+git config format.pretty oneline
+交互式添加文件到暂存区：
+git add -i
+
+图形化客户端：
+GitX (L) (OSX, 开源软件)
+Tower (OSX)
+Source Tree (OSX, 免费)
+GitHub for Mac (OSX, 免费)
+GitBox (OSX, App Store)
+
+
+
+
+--基本Git命令
+要使用Git，开发人员使用特定命令来复制，创建，更改和组合代码。这些命令可以直接从命令行执行，也可以使用GitHub Desktop或Git Kraken 等应用程序执行。以下是一些使用Git的常用命令：
+git init初始化一个全新的Git存储库并开始跟踪现有目录。它在现有目录中添加了一个隐藏的子文件夹，其中包含版本控制所需的内部数据结构。
+git clone创建已远程存在的项目的本地副本。克隆包括所有项目的文件，历史记录和分支。
+git add发生变化。Git跟踪对开发人员代码库的更改，但是有必要暂存并拍摄更改的快照以将其包含在项目的历史记录中。此命令执行分段，这是两步过程的第一部分。任何已暂存的更改都将成为下一个快照的一部分，并成为项目历史的一部分。分别进行分段和提交可使开发人员完全控制其项目的历史记录，而无需更改其编码和工作方式。
+git commit将快照保存到项目历史记录中并完成更改跟踪过程。简而言之，提交功能就像拍照片一样。任何已经上演的东西都git add将成为快照的一部分git commit。
+git status 将更改状态显示为未跟踪，已修改或已暂存。
+git branch 显示在本地工作的分支。
+git merge将发展线融合在一起。此命令通常用于组合在两个不同分支上进行的更改。例如，当开发人员想要将来自功能分支的更改组合到主分支以进行部署时，他们会合并。
+git pull使用远程对应的更新更新本地开发线。如果队友已经对远程分支进行了提交，开发人员会使用此命令，并且他们希望在本地环境中反映这些更改。
+git push 使用本地提交给分支的任何提交来更新远程存储库。
+
+
+--GitHub流程
+GitHub流程是一个基于分支的轻量级工作流程，围绕全球团队（包括我们的团队）使用的核心Git命令构建。
+GitHub流程有六个步骤，每个步骤在实施时都有明显的好处：
+创建分支：从规范部署分支（通常master）创建的主题分支允许团队为许多并行工作做出贡献。特别是短命的主题分支，可以使团队专注并快速发展。
+添加提交：分支内的开发工作快照可在项目历史记录中创建安全，可恢复的点。
+打开拉取请求：拉取请求宣传项目的持续努力，并为透明的开发过程定下基调。
+讨论和审查代码：团队通过评论，测试和审查开放拉取请求来参与代码审查。代码审查是开放和参与性文化的核心。
+合并：点击合并后，GitHub会自动执行本地“git merge”操作。GitHub还在合并的拉取请求中保留整个分支开发历史记录。
+部署：团队可以选择最佳的发布周期或合并持续集成工具，并确保部署分支上的代码经过了强大的工作流程。
+
+
+
+--GitHub和命令行
+对于刚接触命令行的开发人员，GitHub培训团队已经整理了一系列关于Git命令的教程来指导方向。有时候，一系列命令可以描绘出如何使用Git的图片：
+示例：为现有存储库提供帮助
+# download a repository on GitHub.com to our machine
+git clone https://github.com/me/repo.git
+# change into the `repo` directory
+cd repo
+# create a new branch to store any new changes
+git branch my-branch
+# switch to that branch (line of development)
+git checkout my-branch
+# make changes, for example, edit `file1.md` and `file2.md` using the text editor
+# stage the changed files
+git add file1.md file2.md
+# take a snapshot of the staging area (anything that's been added)
+git commit -m "my snapshot"
+# push changes to github
+git push --set-upstream origin my-branch
+示例：启动新存储库并将其发布到GitHub
+首先，您需要在GitHub上创建一个新的存储库。您可以在我们的Hello World指南中学习如何创建新的存储库。不要使用README，.gitignore或License初始化存储库。这个空的存储库将等待您的代码。
+# create a new directory, and initialize it with git-specific functions
+git init my-repo
+# change into the `my-repo` directory
+cd my-repo
+# create the first file in the project
+touch README.md
+# git isn't aware of the file, stage it
+git add README.md
+# take a snapshot of the staging area
+git commit -m "add README to initial commit"
+# provide the path for the repository you created on github
+git remote add origin https://github.com/YOUR-USERNAME/YOUR-REPOSITORY.git
+# push changes to github
+git push --set-upstream origin master
+示例：贡献给GitHub上的现有分支
+# assumption: a project called `repo` already exists on the machine, and a new branch has been pushed to GitHub.com since the last time changes were made locally
+# change into the `repo` directory
+cd repo
+# update all remote tracking branches, and the currently checked out branch
+git pull
+# change into the existing branch called `feature-a`
+git checkout feature-a
+# make changes, for example, edit `file1.md` using the text editor
+# stage the changed file
+git add file1.md
+# take a snapshot of the staging area
+git commit -m "edit file1"
+# push changes to github
+git push
+
+--分叉项目:https://github.com/yuanxiaowen986/Spoon-Knife
+在您自己使用GitHub一段时间后，您可能会发现自己想要为其他人的项目做出贡献。或者，您可能希望将某人的项目作为您自己的起点。这个过程称为分叉。
+创建“fork”正在生成其他人项目的个人副本。Forks充当原始存储库和您的个人副本之间的桥梁。您可以提交Pull请求，通过提供原始项目的更改来帮助改善其他人的项目。分叉是GitHub社交编码的核心。
+在本教程中，我们将使用Spoon-Knife项目，这是一个托管在GitHub.com上的测试存储库，可以让您测试Pull Request工作流程。
+1.分叉存储库
+要分叉Spoon-Knife存储库，请单击存储库标题中的Fork按钮。
+坐下来看看分叉的魔法。完成后，您将被带到Spoon-Knife存储库的副本。
+2.克隆你的叉子
+您已经成功分叉了Spoon-Knife存储库，但到目前为止，它只存在于GitHub上。为了能够处理项目，您需要将其克隆到您的计算机上。
+如果你正在使用GitHub Desktop，这个过程是轻而易举的。在Spoon-Knife的叉子上，导航到右侧栏，然后单击克隆或下载。你如何克隆取决于你。一些选项是使用命令行克隆，或使用GitHub Desktop 克隆。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
