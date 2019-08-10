@@ -1,0 +1,62 @@
+如果标签打错了，也可以删除：
+
+$ git tag -d v0.1
+Deleted tag 'v0.1' (was f15b0dd)
+因为创建的标签都只存储在本地，不会自动推送到远程。所以，打错的标签可以在本地安全删除。
+
+如果要推送某个标签到远程，使用命令git push origin <tagname>：
+
+$ git push origin v1.0
+Total 0 (delta 0), reused 0 (delta 0)
+To github.com:michaelliao/learngit.git
+ * [new tag]         v1.0 -> v1.0
+或者，一次性推送全部尚未推送到远程的本地标签：
+
+$ git push origin --tags
+Total 0 (delta 0), reused 0 (delta 0)
+To github.com:michaelliao/learngit.git
+ * [new tag]         v0.9 -> v0.9
+如果标签已经推送到远程，要删除远程标签就麻烦一点，先从本地删除：
+
+$ git tag -d v0.9
+Deleted tag 'v0.9' (was f52c633)
+然后，从远程删除。删除命令也是push，但是格式如下：
+
+$ git push origin :refs/tags/v0.9
+To github.com:michaelliao/learngit.git
+ - [deleted]         v0.9
+要看看是否真的从远程库删除了标签，可以登陆GitHub查看。
+
+
+
+小结
+命令git push origin <tagname>可以推送一个本地标签；
+
+命令git push origin --tags可以推送全部未推送过的本地标签；
+
+命令git tag -d <tagname>可以删除一个本地标签；
+
+命令git push origin :refs/tags/<tagname>可以删除一个远程标签。
+
+
+
+
+—》假如其它人加了标签，那么我们怎么得到那些标签？
+—》廖雪峰：定期pull你本地就有了。
+
+
+—》直接删除对应的 refs/tags/<tagname> 文件后，能起到删除标签的作用吗（$git tag中不会显示该标签），有什么不好的影响？
+—》廖雪峰：不要直接修改.git目录下的文件。以免造成git不可用。
+
+
+—》有这么个情况：我创建了一个标签：master，这样推送标签时候会提示：src refspec master matches more then one，一般来说都会避免用分支名作为标签名，但是碰到这种情况怎么解决呢？
+—》廖雪峰：标签是为了打上版本号信息，当然不能乱叫，通常用：v1.0, v1.1, v2.0 ...
+           或者按发布日期：build-20150702, build-20150910 ...
+
+
+
+
+
+
+
+
